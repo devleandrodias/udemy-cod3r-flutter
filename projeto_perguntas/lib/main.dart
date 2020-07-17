@@ -21,28 +21,30 @@ class _PerguntaAppState extends State<PerguntaApp> {
     ];
 
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('Perguntas e Respostas'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Perguntas e Respostas'),
+        ),
+        body: Column(
+          children: <Widget>[
+            Questao(perguntas[_perguntaSelecionada]),
+            RaisedButton(
+              child: Text('Resposta 1'),
+              // passando a função como parâmetro e não invocando a função
+              onPressed: _responder,
             ),
-            body: Column(
-              children: <Widget>[
-                Questao(perguntas[_perguntaSelecionada]),
-                RaisedButton(
-                  child: Text('Resposta 1'),
-                  // passando a função como parâmetro e não invocando a função
-                  onPressed: _responder,
-                ),
-                RaisedButton(
-                  child: Text('Resposta 2'),
-                  onPressed: _responder,
-                ),
-                RaisedButton(
-                  child: Text('Resposta 3'),
-                  onPressed: _responder,
-                ),
-              ],
-            )));
+            RaisedButton(
+              child: Text('Resposta 2'),
+              onPressed: _responder,
+            ),
+            RaisedButton(
+              child: Text('Resposta 3'),
+              onPressed: _responder,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
