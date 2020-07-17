@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './questao.dart';
 
 main(List<String> args) => runApp(PerguntaApp());
 
@@ -26,7 +27,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
             ),
             body: Column(
               children: <Widget>[
-                Text(perguntas[_perguntaSelecionada]),
+                Questao(perguntas[_perguntaSelecionada]),
                 RaisedButton(
                   child: Text('Resposta 1'),
                   // passando a função como parâmetro e não invocando a função
