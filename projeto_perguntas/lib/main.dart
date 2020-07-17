@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 main(List<String> args) => runApp(PerguntaApp());
 
-class PerguntaApp extends StatelessWidget {
-  // Colocando estado em um Widget sem estado
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
 
   void responder() {
-    perguntaSelecionada++;
+    setState(() {
+      perguntaSelecionada++;
+    });
     print(perguntaSelecionada);
   }
 
@@ -49,5 +50,12 @@ class PerguntaApp extends StatelessWidget {
                 ),
               ],
             )));
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  @override
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
