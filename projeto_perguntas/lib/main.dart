@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 main(List<String> args) => runApp(PerguntaApp());
 
 class PerguntaApp extends StatelessWidget {
+  // Colocando estado em um Widget sem estado
+  var perguntaSelecionada = 0;
+
   void responder() {
-    print('Pergunta respondida');
+    perguntaSelecionada++;
+    print(perguntaSelecionada);
   }
 
   void Function() funcaoQueRetornaOutraFuncao() {
@@ -19,6 +23,7 @@ class PerguntaApp extends StatelessWidget {
       'Qual é a sua cor favorita?',
       'Qual é o seu animal favorito'
     ];
+
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
@@ -26,11 +31,11 @@ class PerguntaApp extends StatelessWidget {
             ),
             body: Column(
               children: <Widget>[
-                Text(perguntas[1]),
+                Text(perguntas[perguntaSelecionada]),
                 RaisedButton(
                   child: Text('Resposta 1'),
-                  onPressed: () => print(
-                      'Resposta #01'), // passando a função como parâmetro e não invocando a função
+                  // passando a função como parâmetro e não invocando a função
+                  onPressed: responder,
                 ),
                 RaisedButton(
                   child: Text('Resposta 2'),
