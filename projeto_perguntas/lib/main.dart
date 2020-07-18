@@ -10,15 +10,31 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual a sua cor favorita?',
-      'respostas': ['Cinza', 'Preto', 'Vermelho', 'Roxo']
+      'respostas': [
+        {'texto': 'Cinza', 'nota': 10},
+        {'texto': 'Preto', 'nota': 10},
+        {'texto': 'Vermelho', 'nota': 10},
+        {'texto': 'Roxo', 'nota': 10},
+      ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
-      'respostas': ['-> Thaísa S2 <-', 'Macaco', 'Golfinho', 'Canguru']
+      'respostas': [
+        {'texto': 'Ratazana', 'nota': 10},
+        {'texto': 'Macaco', 'nota': 10},
+        {'texto': 'Golfinho', 'nota': 10},
+        {'texto': 'Canguru', 'nota': 10},
+      ]
     },
     {
       'texto': 'Qual seu instrutor favorito?',
-      'respostas': ['Balta', 'Eduardo', 'Léo', 'Wesley', 'Rodrigo']
+      'respostas': [
+        {'texto': 'Balta', 'nota': 10},
+        {'texto': 'Eduardo', 'nota': 10},
+        {'texto': 'Léo', 'nota': 10},
+        {'texto': 'Wesley', 'nota': 10},
+        {'texto': 'Rodrigo', 'nota': 10},
+      ]
     }
   ];
 
