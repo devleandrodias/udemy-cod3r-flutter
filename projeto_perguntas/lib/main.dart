@@ -6,44 +6,48 @@ main(List<String> args) => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
 
   final List<Map<String, Object>> _perguntas = const [
     {
       'texto': 'Qual a sua cor favorita?',
       'respostas': [
-        {'texto': 'Cinza', 'nota': 10},
-        {'texto': 'Preto', 'nota': 10},
-        {'texto': 'Vermelho', 'nota': 10},
-        {'texto': 'Roxo', 'nota': 10},
+        {'texto': 'Cinza', 'pontuacao': 10},
+        {'texto': 'Preto', 'pontuacao': 10},
+        {'texto': 'Vermelho', 'pontuacao': 10},
+        {'texto': 'Roxo', 'pontuacao': 10},
       ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
       'respostas': [
-        {'texto': 'Ratazana', 'nota': 10},
-        {'texto': 'Macaco', 'nota': 10},
-        {'texto': 'Golfinho', 'nota': 10},
-        {'texto': 'Canguru', 'nota': 10},
+        {'texto': 'Ratazana', 'pontuacao': 10},
+        {'texto': 'Macaco', 'pontuacao': 10},
+        {'texto': 'Golfinho', 'pontuacao': 10},
+        {'texto': 'Canguru', 'pontuacao': 10},
       ]
     },
     {
       'texto': 'Qual seu instrutor favorito?',
       'respostas': [
-        {'texto': 'Balta', 'nota': 10},
-        {'texto': 'Eduardo', 'nota': 10},
-        {'texto': 'Léo', 'nota': 10},
-        {'texto': 'Wesley', 'nota': 10},
-        {'texto': 'Rodrigo', 'nota': 10},
+        {'texto': 'Balta', 'pontuacao': 10},
+        {'texto': 'Eduardo', 'pontuacao': 10},
+        {'texto': 'Léo', 'pontuacao': 10},
+        {'texto': 'Wesley', 'pontuacao': 10},
+        {'texto': 'Rodrigo', 'pontuacao': 10},
       ]
     }
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
       });
     }
+
+    print(_pontuacaoTotal);
   }
 
   bool get temPerguntaSelecionada {
@@ -59,7 +63,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
             ? Questionario(
                 perguntas: _perguntas,
                 perguntaSelecionada: _perguntaSelecionada,
-                responder: _responder,
+                quandoResponder: _responder,
               )
             : Resultado(),
       ),
