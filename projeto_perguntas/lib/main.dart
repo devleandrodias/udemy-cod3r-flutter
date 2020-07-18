@@ -12,29 +12,29 @@ class _PerguntaAppState extends State<PerguntaApp> {
     {
       'texto': 'Qual a sua cor favorita?',
       'respostas': [
-        {'texto': 'Cinza', 'pontuacao': 10},
-        {'texto': 'Preto', 'pontuacao': 10},
-        {'texto': 'Vermelho', 'pontuacao': 10},
-        {'texto': 'Roxo', 'pontuacao': 10},
+        {'texto': 'Cinza', 'pontuacao': 2},
+        {'texto': 'Preto', 'pontuacao': 4},
+        {'texto': 'Vermelho', 'pontuacao': 7},
+        {'texto': 'Roxo', 'pontuacao': 4},
       ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
       'respostas': [
-        {'texto': 'Ratazana', 'pontuacao': 10},
-        {'texto': 'Macaco', 'pontuacao': 10},
-        {'texto': 'Golfinho', 'pontuacao': 10},
-        {'texto': 'Canguru', 'pontuacao': 10},
+        {'texto': 'Ratazana', 'pontuacao': 4},
+        {'texto': 'Macaco', 'pontuacao': 3},
+        {'texto': 'Golfinho', 'pontuacao': 7},
+        {'texto': 'Canguru', 'pontuacao': 2},
       ]
     },
     {
       'texto': 'Qual seu instrutor favorito?',
       'respostas': [
-        {'texto': 'Balta', 'pontuacao': 10},
-        {'texto': 'Eduardo', 'pontuacao': 10},
-        {'texto': 'Léo', 'pontuacao': 10},
-        {'texto': 'Wesley', 'pontuacao': 10},
-        {'texto': 'Rodrigo', 'pontuacao': 10},
+        {'texto': 'Balta', 'pontuacao': 6},
+        {'texto': 'Eduardo', 'pontuacao': 3},
+        {'texto': 'Léo', 'pontuacao': 1},
+        {'texto': 'Wesley', 'pontuacao': 5},
+        {'texto': 'Rodrigo', 'pontuacao': 3},
       ]
     }
   ];
@@ -46,8 +46,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
         _pontuacaoTotal += pontuacao;
       });
     }
+  }
 
-    print(_pontuacaoTotal);
+  void _reiniciarQuestionario() {
+    setState(() {
+      _perguntaSelecionada = 0;
+      _pontuacaoTotal = 0;
+    });
   }
 
   bool get temPerguntaSelecionada {
@@ -65,7 +70,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                 perguntaSelecionada: _perguntaSelecionada,
                 quandoResponder: _responder,
               )
-            : Resultado(_pontuacaoTotal),
+            : Resultado(_pontuacaoTotal, _reiniciarQuestionario),
       ),
     );
   }
