@@ -42,7 +42,7 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.purple[700],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -54,7 +54,19 @@ class MyHomePage extends StatelessWidget {
           Column(
             children: _transactions.map((e) {
               return Card(
-                child: Text(e.title),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(e.value.toString()),
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(e.title),
+                        Text(e.date.toString())
+                      ],
+                    ),
+                  ],
+                ),
               );
             }).toList(),
           )
