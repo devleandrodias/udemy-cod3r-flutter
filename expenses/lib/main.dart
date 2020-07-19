@@ -1,9 +1,8 @@
 import 'dart:math';
-
-import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 
 import 'components/transaction_list.dart';
+import 'components/transaction_form.dart';
 import 'models/transaction.dart';
 
 main(List<String> args) => runApp(ExpensesApp());
@@ -57,14 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (_) {
-        return TransactionForm(_addTransaction);
-      },
+      builder: (_) => TransactionForm(_addTransaction),
     );
   }
 
