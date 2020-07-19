@@ -14,7 +14,7 @@ class ExpensesApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         textTheme: ThemeData.light().textTheme.copyWith(
-              title: TextStyle(
+              headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
                   fontWeight: FontWeight.w300),
@@ -24,7 +24,7 @@ class ExpensesApp extends StatelessWidget {
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
+                headline6: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 20,
                     fontWeight: FontWeight.w300),
