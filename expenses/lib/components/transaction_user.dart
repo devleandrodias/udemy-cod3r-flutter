@@ -25,9 +25,15 @@ class _TransactionUserState extends State<TransactionUser> {
       date: DateTime.now(),
     ),
     Transaction(
-      id: 't3',
-      title: 'iMac 27, 5K',
-      value: 10034.69,
+      id: 't1',
+      title: 'Nova Blusa Nike',
+      value: 210.34,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de luz',
+      value: 120.50,
       date: DateTime.now(),
     ),
   ];

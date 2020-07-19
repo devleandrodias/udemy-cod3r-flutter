@@ -12,39 +12,36 @@ class TransactionForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                labelText: 'Título',
-              ),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            controller: titleController,
+            decoration: InputDecoration(
+              labelText: 'Título',
             ),
-            TextField(
-              controller: valueController,
-              decoration: InputDecoration(
-                labelText: 'Valor (R\$)',
-              ),
+          ),
+          TextField(
+            controller: valueController,
+            decoration: InputDecoration(
+              labelText: 'Valor (R\$)',
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                FlatButton(
-                  child: Text('Nova Transação'),
-                  textColor: Colors.purple[600],
-                  onPressed: () {
-                    final title = titleController.text;
-                    final value = double.tryParse(valueController.text) ?? 0;
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FlatButton(
+                child: Text('Nova Transação'),
+                textColor: Colors.purple[600],
+                onPressed: () {
+                  final title = titleController.text;
+                  final value = double.tryParse(valueController.text) ?? 0;
 
-                    this.onSubimit(title, value);
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+                  this.onSubimit(title, value);
+                },
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

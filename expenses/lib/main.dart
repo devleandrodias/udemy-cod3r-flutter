@@ -5,9 +5,7 @@ main(List<String> args) => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
-  }
+  Widget build(BuildContext context) => MaterialApp(home: MyHomePage());
 }
 
 class MyHomePage extends StatelessWidget {
@@ -18,17 +16,19 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),
         backgroundColor: Colors.purple[700],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            child: Card(
-              child: Text('Gráfico'),
-              elevation: 2,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              child: Card(
+                child: Text('Gráfico'),
+                elevation: 2,
+              ),
             ),
-          ),
-          TransactionUser()
-        ],
+            TransactionUser()
+          ],
+        ),
       ),
     );
   }
