@@ -41,15 +41,19 @@ class TransactionList extends StatelessWidget {
                             vertical: 10,
                           ),
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
                             border: Border.all(
                               color: Theme.of(context).primaryColor,
-                              width: 2,
+                              width: 1.5,
                             ),
                           ),
                           padding: EdgeInsets.all(10),
                           child: Text(
                             'R\$ ${e.value.toStringAsFixed(2)}',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: TextStyle(
+                              color: Colors.purple,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                         Column(
