@@ -31,7 +31,7 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 final e = transactions[index];
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                   child: Card(
                     child: Row(
                       children: <Widget>[
