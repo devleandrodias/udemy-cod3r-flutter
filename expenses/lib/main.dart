@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
