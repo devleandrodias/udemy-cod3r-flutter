@@ -21,6 +21,10 @@ class ExpensesApp extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w300,
               ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
         primarySwatch: Colors.purple,
         accentColor: Colors.pink[600],
