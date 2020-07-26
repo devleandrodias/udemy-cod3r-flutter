@@ -30,51 +30,28 @@ class TransactionList extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
                 final e = transactions[index];
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-                  child: Card(
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 1.5,
-                            ),
-                          ),
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            'R\$ ${e.value.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              color: Colors.purple,
-                              fontSize: 18,
-                            ),
-                          ),
+                return Card(
+                  elevation: 3,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 15,
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: FittedBox(
+                          child: Text('R\$${e.value}'),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              e.title,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              DateFormat('d MMM y').format(e.date),
-                              style: TextStyle(
-                                color: Colors.grey[500],
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
+                      ),
+                    ),
+                    title: Text(
+                      e.title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat('d MMM y').format(e.date),
                     ),
                   ),
                 );
