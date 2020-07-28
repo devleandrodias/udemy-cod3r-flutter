@@ -94,7 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
-        style: TextStyle(fontFamily: 'OpenSans'),
+        style: TextStyle(
+          fontFamily: 'OpenSans',
+          fontSize: 17 * MediaQuery.textScaleFactorOf(context),
+        ),
       ),
       backgroundColor: Colors.purple[700],
       actions: <Widget>[
@@ -119,11 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              height: avaliableHeight * 0.3,
+              height: avaliableHeight * 0.25,
               child: Chart(_recentReansactions),
             ),
             Container(
-              height: avaliableHeight * 0.7,
+              height: avaliableHeight * 0.75,
               child: TransactionList(
                 _transactions,
                 _removeTransaction,
