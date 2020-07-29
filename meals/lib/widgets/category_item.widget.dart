@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meals/models/category.dart';
-import 'package:meals/screens/categories_meals.screen.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -10,14 +9,18 @@ class CategoryItem extends StatelessWidget {
   });
 
   void _selectedCategory(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return CategoriesMealsScree(
-            category: category,
-          );
-        },
-      ),
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (_) {
+    //       return CategoriesMealsScree(
+    //         category: category,
+    //       );
+    //     },
+    //   ),
+    // );
+    Navigator.of(context).pushNamed(
+      '/categories-meals',
+      arguments: category,
     );
   }
 
