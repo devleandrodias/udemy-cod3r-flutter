@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/models/category.dart';
+import 'package:meals/widgets/meal_item.widget.dart';
 
 class CategoriesMealsScree extends StatelessWidget {
   @override
@@ -19,7 +20,9 @@ class CategoriesMealsScree extends StatelessWidget {
         child: ListView.builder(
           itemCount: categoriesMeals.length,
           itemBuilder: (ctx, index) {
-            return Text(categoriesMeals[index].title);
+            return MealItem(
+              meal: categoriesMeals[index],
+            );
           },
         ),
       ),
