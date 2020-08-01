@@ -25,10 +25,25 @@ class MyApp extends StatelessWidget {
             ),
       ),
       initialRoute: AppRoutes.HOME,
+      // Primeira rotas excutada
       routes: {
         AppRoutes.HOME: (_) => CategoriesScreen(),
         AppRoutes.CATEGORIA_MEALS: (_) => CategoriesMealsScree(),
         AppRoutes.MEAL_DETAIL: (_) => MealDetailScreen(),
+      },
+      // Executado depois das rotas caso não encontre
+      onGenerateRoute: (settings) {
+        if (settings.name == '/alguma-coisa') {
+          return null;
+        } else {
+          return null;
+        }
+      },
+      // Executado depois do onGenerateRoute caso não encontre rota
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (_) {
+          return CategoriesScreen();
+        });
       },
     );
   }
