@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals/screens/categories.screen.dart';
 import 'package:meals/screens/categories_meals.screen.dart';
 import 'package:meals/screens/meal_detail_screen.dart';
+import 'package:meals/screens/settings_screen.dart';
 import 'package:meals/screens/tabs_screen.dart';
 import 'package:meals/utils/app_routes.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.HOME: (_) => TabsScreen(),
         AppRoutes.CATEGORIA_MEALS: (_) => CategoriesMealsScree(),
         AppRoutes.MEAL_DETAIL: (_) => MealDetailScreen(),
+        AppRoutes.SETTINGS: (_) => SettingsScreen(),
       },
       // Executado depois das rotas caso não encontre
       onGenerateRoute: (settings) {
