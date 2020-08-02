@@ -3,27 +3,44 @@ import 'package:meals/models/settings.dart';
 import 'package:meals/widgets/main_drawer.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final Function(Settings) onSettingsChanged;
+  final Settings settings;
+
+  const SettingsScreen(
+    this.onSettingsChanged,
+    this.settings,
+  );
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  Settings settings;
+
+  @override
+  void initState() {
+    super.initState();
+    settings = widget.settings;
+  }
+
   Widget _createSwitch(
     String title,
     String subtitle,
     bool value,
-    Function onChanged,
+    Function(bool) onChanged,
   ) {
     return SwitchListTile.adaptive(
       title: Text(title),
       subtitle: Text(subtitle),
       value: value,
-      onChanged: onChanged,
+      onChanged: (value) {
+        onChanged(value);
+        widget.onSettingsChanged(settings);
+      },
       activeColor: Theme.of(context).primaryColor,
     );
   }
-
-  var settings = Settings();
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +50,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Text(
-              'Configuraçōes',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
           Expanded(
             child: ListView(
               children: <Widget>[
