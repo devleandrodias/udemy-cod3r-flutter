@@ -4,7 +4,7 @@ import 'package:shop/models/product.dart';
 import 'package:shop/widgets/product_item.dart';
 
 class ProductOverviewScreen extends StatelessWidget {
-  final List<Product> loadedProducts = DUMMY_PRODUCTS;
+  final List<Product> loadedProducts = dummyProducts;
 
   @override
   Widget build(BuildContext context) {
