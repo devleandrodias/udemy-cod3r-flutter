@@ -49,6 +49,22 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).accentColor,
             ),
             onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(seconds: 2),
+                  content: Text(
+                    'Produto Adicionando com Sucesso!',
+                    textAlign: TextAlign.center,
+                  ),
+                  action: SnackBarAction(
+                    label: 'DESFAZER',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
+              );
               cart.addItem(product);
             },
           ),
