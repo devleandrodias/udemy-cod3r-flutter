@@ -17,7 +17,7 @@ class PlacesListScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Text('Funcionando pelo Wifi!!'),
       ),
     );
   }
