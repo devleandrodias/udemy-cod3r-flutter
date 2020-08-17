@@ -26,4 +26,10 @@ class DbUtil {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  static Future<List<Map<String, Object>>> getData(String table) async {
+    final db = await DbUtil.database();
+
+    return await db.query(table);
+  }
 }
