@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:shop/providers/product_provider.dart';
 
 class ProductFormScreen extends StatefulWidget {
   @override
@@ -10,6 +13,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   final _descriptionFocusNode = FocusNode();
   final _imageUrlFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
+  final _form = GlobalKey<FormState>();
+  final _formData = Map<String, Object>();
 
   @override
   void initState() {
@@ -30,80 +35,109 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     setState(() {});
   }
 
+  void _saveForm() {
+    _form.currentState.save();
+
+    final newProduct = Product(
+      id: Random().nextDouble().toString(),
+      title: _formData['title'],
+      description: _formData['description'],
+      price: _formData['price'],
+      imageUrl: _formData['imageUrl'],
+    );
+
+    print(newProduct);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Formulário de Produtos'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {
+              _saveForm();
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(15),
         child: Form(
-            child: ListView(
-          children: [
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Titulo'),
-              textInputAction: TextInputAction.next,
-              onFieldSubmitted: (_) {
-                FocusScope.of(context).requestFocus(_priceFocusNode);
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Preço'),
-              focusNode: _priceFocusNode,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              textInputAction: TextInputAction.next,
-              onFieldSubmitted: (ctx) {
-                FocusScope.of(context).requestFocus(_descriptionFocusNode);
-              },
-            ),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Descrição'),
-              maxLines: 3,
-              keyboardType: TextInputType.multiline,
-              textInputAction: TextInputAction.newline,
-              focusNode: _descriptionFocusNode,
-              onFieldSubmitted: (_) {},
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(labelText: 'URL da Imagem'),
-                    keyboardType: TextInputType.url,
-                    textInputAction: TextInputAction.done,
-                    focusNode: _imageUrlFocusNode,
-                    controller: _imageUrlController,
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.only(
-                    top: 10,
-                    left: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1,
+          key: _form,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Titulo'),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(_priceFocusNode);
+                },
+                onSaved: (value) => _formData['title'] = value,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Preço'),
+                focusNode: _priceFocusNode,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (ctx) {
+                  FocusScope.of(context).requestFocus(_descriptionFocusNode);
+                },
+                onSaved: (value) => _formData['price'] = double.tryParse(value),
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Descrição'),
+                maxLines: 3,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
+                focusNode: _descriptionFocusNode,
+                onFieldSubmitted: (_) {},
+                onSaved: (value) => _formData['description'] = value,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: 'URL da Imagem'),
+                      keyboardType: TextInputType.url,
+                      textInputAction: TextInputAction.done,
+                      focusNode: _imageUrlFocusNode,
+                      controller: _imageUrlController,
+                      onFieldSubmitted: (_) => _saveForm(),
+                      onSaved: (value) => _formData['imageUrl'] = value,
                     ),
                   ),
-                  alignment: Alignment.center,
-                  child: _imageUrlController.text.isEmpty
-                      ? Text('Informe a URL')
-                      : FittedBox(
-                          child: Image.network(
-                            _imageUrlController.text,
-                            fit: BoxFit.cover,
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: EdgeInsets.only(
+                      top: 10,
+                      left: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: _imageUrlController.text.isEmpty
+                        ? Text('Informe a URL')
+                        : FittedBox(
+                            child: Image.network(
+                              _imageUrlController.text,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                )
-              ],
-            ),
-          ],
-        )),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
