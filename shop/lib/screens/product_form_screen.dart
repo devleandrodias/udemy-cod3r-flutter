@@ -36,17 +36,21 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   void _saveForm() {
-    _form.currentState.save();
+    bool isValid = _form.currentState.validate();
 
-    final newProduct = Product(
-      id: Random().nextDouble().toString(),
-      title: _formData['title'],
-      description: _formData['description'],
-      price: _formData['price'],
-      imageUrl: _formData['imageUrl'],
-    );
+    if (isValid) {
+      _form.currentState.save();
 
-    print(newProduct);
+      final newProduct = Product(
+        id: Random().nextDouble().toString(),
+        title: _formData['title'],
+        description: _formData['description'],
+        price: _formData['price'],
+        imageUrl: _formData['imageUrl'],
+      );
+
+      print(newProduct);
+    }
   }
 
   @override
@@ -76,6 +80,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
                 onSaved: (value) => _formData['title'] = value,
+                validator: (value) {
+                  return value.trim().isEmpty
+                      ? 'Informe um título válido!'
+                      : null;
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Preço'),
@@ -86,6 +95,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
                 },
                 onSaved: (value) => _formData['price'] = double.tryParse(value),
+                validator: (value) {
+                  return value.trim().isEmpty
+                      ? 'Informe um preço válido'
+                      : null;
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Descrição'),
@@ -95,6 +109,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 focusNode: _descriptionFocusNode,
                 onFieldSubmitted: (_) {},
                 onSaved: (value) => _formData['description'] = value,
+                validator: (value) {
+                  return value.trim().isEmpty
+                      ? 'Informe uma descrição válida'
+                      : null;
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,6 +127,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       controller: _imageUrlController,
                       onFieldSubmitted: (_) => _saveForm(),
                       onSaved: (value) => _formData['imageUrl'] = value,
+                      validator: (value) {
+                        return value.trim().isEmpty
+                            ? 'Infome uma URL válida'
+                            : null;
+                      },
                     ),
                   ),
                   Container(
