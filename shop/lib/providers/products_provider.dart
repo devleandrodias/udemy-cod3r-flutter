@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shop/data/dummy_data.dart';
 import 'package:shop/providers/product_provider.dart';
@@ -13,8 +15,17 @@ class ProductsProvider with ChangeNotifier {
     return _items.where((element) => element.isFavorite).toList();
   }
 
-  void addProduct(Product product) {
-    _items.add(product);
+  void addProduct(Product newProduct) {
+    _items.add(
+      Product(
+        id: Random().nextDouble().toString(),
+        description: newProduct.description,
+        price: newProduct.price,
+        imageUrl: newProduct.imageUrl,
+        title: newProduct.title,
+        isFavorite: newProduct.isFavorite,
+      ),
+    );
     notifyListeners();
   }
 }
