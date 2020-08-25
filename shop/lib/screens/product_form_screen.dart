@@ -32,7 +32,21 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   void _updateImageUrl() {
-    setState(() {});
+    if (_isValidImageUrl(_imageUrlController.text)) {
+      setState(() {});
+    }
+  }
+
+  bool _isValidImageUrl(String url) {
+    bool startWithHttp = url.toLowerCase().startsWith('http://');
+    bool startWithHttps = url.toLowerCase().startsWith('https://');
+
+    bool endsWithPng = url.toLowerCase().endsWith('.png');
+    bool endsWithJpg = url.toLowerCase().endsWith('.jpg');
+    bool endsWithJpeg = url.toLowerCase().endsWith('.jpeg');
+
+    return (startWithHttp || startWithHttps) &&
+        (endsWithPng || endsWithJpg || endsWithJpeg);
   }
 
   void _saveForm() {
@@ -96,9 +110,13 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
                 onSaved: (value) => _formData['price'] = double.tryParse(value),
                 validator: (value) {
-                  return value.trim().isEmpty
-                      ? 'Informe um preço válido'
-                      : null;
+                  bool isEmpty = value.trim().isEmpty;
+                  var newPrice = double.tryParse(value);
+                  bool isInvalid = newPrice == null || newPrice <= 0;
+
+                  if (isEmpty || isInvalid) return 'Informe um preço válido';
+
+                  return null;
                 },
               ),
               TextFormField(
@@ -128,9 +146,14 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       onFieldSubmitted: (_) => _saveForm(),
                       onSaved: (value) => _formData['imageUrl'] = value,
                       validator: (value) {
-                        return value.trim().isEmpty
-                            ? 'Infome uma URL válida'
-                            : null;
+                        bool empty = value.trim().isEmpty;
+                        bool isValid = _isValidImageUrl(value.trim());
+
+                        if (empty || !isValid) {
+                          return 'Informe uma url válida';
+                        } else {
+                          return null;
+                        }
                       },
                     ),
                   ),
