@@ -39,6 +39,16 @@ class ProductsProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void deleteProduct(String id) {
+    print(id);
+    final index = _items.indexWhere((element) => element.id == id);
+
+    if (index <= 0) {
+      _items.removeWhere((element) => element.id == id);
+      notifyListeners();
+    }
+  }
 }
 
 // bool _showFavoriteOnly = false;
