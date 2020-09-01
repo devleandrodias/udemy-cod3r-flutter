@@ -28,6 +28,17 @@ class ProductsProvider with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void updateProduct(Product product) {
+    if (product == null && product.id == null) return;
+
+    final index = _items.indexWhere((element) => element.id == product.id);
+
+    if (index <= 0) {
+      _items[index] = product;
+      notifyListeners();
+    }
+  }
 }
 
 // bool _showFavoriteOnly = false;

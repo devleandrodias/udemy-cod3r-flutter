@@ -23,6 +23,25 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_formData.isEmpty) {
+      final product = ModalRoute.of(context).settings.arguments as Product;
+
+      if (product != null) {
+        _formData['id'] = product.id;
+        _formData['title'] = product.title;
+        _formData['description'] = product.description;
+        _formData['price'] = product.price;
+        _formData['imageUrl'] = product.imageUrl;
+        _imageUrlController.text = _formData['imageUrl'];
+      } else {
+        _formData['price'] = '';
+      }
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _priceFocusNode.dispose();
@@ -56,14 +75,20 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       _form.currentState.save();
 
       final newProduct = Product(
+        id: _formData['id'],
         title: _formData['title'],
         description: _formData['description'],
         price: _formData['price'],
         imageUrl: _formData['imageUrl'],
       );
 
-      Provider.of<ProductsProvider>(context, listen: false)
-          .addProduct(newProduct);
+      final product = Provider.of<ProductsProvider>(context, listen: false);
+
+      if (_formData['id'] == null) {
+        product.addProduct(newProduct);
+      } else {
+        product.updateProduct(newProduct);
+      }
 
       Navigator.of(context).pop();
     }
@@ -90,6 +115,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
           child: ListView(
             children: [
               TextFormField(
+                initialValue: _formData['title'],
                 decoration: InputDecoration(labelText: 'Titulo'),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
@@ -103,6 +129,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               TextFormField(
+                initialValue: _formData['price'].toString(),
                 decoration: InputDecoration(labelText: 'Preço'),
                 focusNode: _priceFocusNode,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -122,6 +149,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                 },
               ),
               TextFormField(
+                initialValue: _formData['description'],
                 decoration: InputDecoration(labelText: 'Descrição'),
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
