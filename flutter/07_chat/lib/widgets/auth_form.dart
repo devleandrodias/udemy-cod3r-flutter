@@ -1,3 +1,4 @@
+import 'package:chat/models/auth_data.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -6,6 +7,19 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
+  final AuthData _authData = AuthData();
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  void _submitForm() {
+    bool isFormValid = _formKey.currentState.validate();
+
+    FocusScope.of(context).unfocus();
+
+    if (isFormValid) {
+      print('Deu tudo certo!!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,32 +29,77 @@ class _AuthFormState extends State<AuthForm> {
           child: Padding(
             padding: EdgeInsets.all(16.0),
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Nome',
+                  if (_authData.isSignUp)
+                    TextFormField(
+                      key: ValueKey('name'),
+                      onChanged: (value) => _authData.name = value,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Nome não pode ser vazio';
+                        }
+
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Nome',
+                      ),
                     ),
-                  ),
                   TextFormField(
+                    key: ValueKey('email'),
+                    onChanged: (value) => _authData.email = value,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'E-mail não pode ser vazio';
+                      }
+
+                      if (value == null || !value.contains('@')) {
+                        return 'E-mail não pode ser vazio';
+                      }
+
+                      return null;
+                    },
                     decoration: InputDecoration(
                       labelText: 'E-mail',
                     ),
                   ),
                   TextFormField(
+                    key: ValueKey('password'),
                     obscureText: true,
+                    onChanged: (value) => _authData.password = value,
                     decoration: InputDecoration(
                       labelText: 'Senha',
                     ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Senha não pode ser vazio';
+                      }
+
+                      if (value == null || value.length < 6) {
+                        return 'Senha deve conter no minimo 6 caracteres';
+                      }
+
+                      return null;
+                    },
                   ),
                   SizedBox(height: 12),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Entrar'),
+                    onPressed: _submitForm,
+                    child: Text(_authData.isSignIn ? 'Entrar' : 'Cadastrar'),
                   ),
                   TextButton(
-                    onPressed: () {},
-                    child: Text('Criar uma nova conta'),
+                    onPressed: () {
+                      setState(() {
+                        _authData.toggleMode();
+                      });
+                    },
+                    child: Text(
+                      _authData.isSignIn
+                          ? 'Criar uma nova conta?'
+                          : 'Ja tenho uma conta',
+                    ),
                   )
                 ],
               ),
