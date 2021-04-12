@@ -22,9 +22,7 @@ class ChatScreen extends StatelessWidget {
               return Container(
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    documents[index]['text'],
-                  ),
+                  child: Text(documents[index]['text']),
                 ),
               );
             },
@@ -33,7 +31,11 @@ class ChatScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Firestore.instance.collection('chat').add(
+            {'text': 'dados vindo do app...'},
+          );
+        },
       ),
     );
   }
