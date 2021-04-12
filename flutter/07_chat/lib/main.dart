@@ -12,7 +12,18 @@ class FlutterChat extends StatelessWidget {
       title: 'Flutter Chat',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
+        primaryColorBrightness: Brightness.light,
+        backgroundColor: Colors.pink,
+        accentColor: Colors.deepPurple,
+        accentColorBrightness: Brightness.dark,
+        buttonTheme: ButtonTheme.of(context).copyWith(
+          buttonColor: Colors.pink,
+          textTheme: ButtonTextTheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: AuthScreen(),
