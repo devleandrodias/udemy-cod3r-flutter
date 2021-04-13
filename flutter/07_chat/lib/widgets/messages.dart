@@ -6,38 +6,30 @@ import 'package:flutter/material.dart';
 class Messages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: FirebaseAuth.instance.currentUser(),
-      builder: (ctx, userSnapshot) {
-        if (userSnapshot.connectionState == ConnectionState.waiting) {
+    final User user = FirebaseAuth.instance.currentUser;
+
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('chat')
+          .orderBy('createdAt', descending: true)
+          .snapshots(),
+      builder: (ctx, chatSnapshot) {
+        if (chatSnapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
 
-        return StreamBuilder(
-          stream: Firestore.instance
-              .collection('chat')
-              .orderBy('createdAt', descending: true)
-              .snapshots(),
-          builder: (ctx, chatSnapshot) {
-            if (chatSnapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
+        final chatDocs = chatSnapshot.data.documents;
 
-            final chatDocs = chatSnapshot.data.documents;
-
-            return ListView.builder(
-              reverse: true,
-              itemCount: chatDocs.length,
-              itemBuilder: (ctx, index) {
-                return MessageBubble(
-                  message: chatDocs[index]['text'],
-                  key: ValueKey(chatDocs[index].documentID),
-                  userName: chatDocs[index]['userName'],
-                  userImage: chatDocs[index]['userImage'],
-                  belongsToMe:
-                      chatDocs[index]['userId'] == userSnapshot.data.uid,
-                );
-              },
+        return ListView.builder(
+          reverse: true,
+          itemCount: chatDocs.length,
+          itemBuilder: (ctx, index) {
+            return MessageBubble(
+              key: ValueKey(chatDocs[index].documentID),
+              message: chatDocs[index].get('text'),
+              userName: chatDocs[index].get('userName'),
+              userImage: chatDocs[index].get('userImage'),
+              belongsToMe: chatDocs[index].get('userId') == user.uid,
             );
           },
         );

@@ -29,7 +29,8 @@ class _AuthScreenState extends State<AuthScreen> {
           password: authData.password,
         );
       } else {
-        AuthResult authResult = await _auth.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
           email: authData.email.trim(),
           password: authData.password,
         );
@@ -37,7 +38,7 @@ class _AuthScreenState extends State<AuthScreen> {
         final ref = FirebaseStorage.instance
             .ref()
             .child('user_images')
-            .child(authResult.user.uid + '.jpg');
+            .child(userCredential.user.uid + '.jpg');
 
         await ref.putFile(authData.image).onComplete;
 
@@ -49,10 +50,10 @@ class _AuthScreenState extends State<AuthScreen> {
           'imageUrl': imageUrl
         };
 
-        await Firestore.instance
+        await FirebaseFirestore.instance
             .collection('users')
-            .document(authResult.user.uid)
-            .setData(userData);
+            .doc(userCredential.user.uid)
+            .set(userData);
       }
     } on PlatformException catch (e) {
       _scaffoldKey.currentState.showSnackBar(
