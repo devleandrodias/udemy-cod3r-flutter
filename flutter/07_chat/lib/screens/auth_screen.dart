@@ -64,28 +64,30 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              children: [
-                AuthForm(onSubmit: _handleSubmit),
-                if (_isLoading)
-                  Positioned.fill(
-                    child: Container(
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                children: [
+                  AuthForm(onSubmit: _handleSubmit),
+                  if (_isLoading)
+                    Positioned.fill(
+                      child: Container(
+                        margin: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                        ),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  )
-              ],
-            ),
-          ],
+                    )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

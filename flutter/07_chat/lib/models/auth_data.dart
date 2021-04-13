@@ -1,9 +1,12 @@
+import 'dart:io';
+
 enum EAuthMode {
   SIGN_IN,
   SIGN_UP,
 }
 
 class AuthData {
+  File image;
   String name;
   String email;
   String password;

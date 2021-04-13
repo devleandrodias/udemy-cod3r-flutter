@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:chat/models/auth_data.dart';
+import 'package:chat/widgets/user_image_picker.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -14,14 +17,28 @@ class _AuthFormState extends State<AuthForm> {
   final AuthData _authData = AuthData();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  void _submitForm() {
+  void _handleSubmitForm() {
     bool isFormValid = _formKey.currentState.validate();
 
     FocusScope.of(context).unfocus();
 
+    if (_authData.image == null && _authData.isSignUp) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Precisamos da sua foto para cadastro'),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
+
     if (isFormValid) {
       widget.onSubmit(_authData);
     }
+  }
+
+  void _handlePickedImage(File image) {
+    _authData.image = image;
   }
 
   @override
@@ -36,6 +53,8 @@ class _AuthFormState extends State<AuthForm> {
               key: _formKey,
               child: Column(
                 children: [
+                  if (_authData.isSignUp)
+                    UserImagePicker(onImagePick: _handlePickedImage),
                   if (_authData.isSignUp)
                     TextFormField(
                       key: ValueKey('name'),
@@ -90,7 +109,7 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                   SizedBox(height: 12),
                   ElevatedButton(
-                    onPressed: _submitForm,
+                    onPressed: _handleSubmitForm,
                     child: Text(_authData.isSignIn ? 'Entrar' : 'Cadastrar'),
                   ),
                   TextButton(
